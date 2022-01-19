@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")]
 public class SimpleShoot : MonoBehaviour
@@ -25,7 +26,7 @@ public class SimpleShoot : MonoBehaviour
     private int actualAmmo;
     public float reloadTime;
     public float shotDamage;
-    public Text display;
+    public TMP_Text display;
     public bool reloading;
     public Image barraCarga;
     [Header("Settings")]
