@@ -6,22 +6,17 @@ using UnityEngine.UI;
 public class VRGaze : MonoBehaviour
 {
     public Image imgGaze;
-
     public float totalTime = 2;
-
     public bool gvrStatus;
-
     private float gvrTimer;
-    
-    
 
     [SerializeField] private Text enemies;
 
     private int contadorEnemigos;
-    // Start is called before the first frame update
-    
+
     //Puntero que sale de la pistola.
     public GvrReticlePointer pointer; 
+
     void Start()
     {
         contadorEnemigos = 0;
@@ -66,7 +61,8 @@ public class VRGaze : MonoBehaviour
                     enemies.text = contadorEnemigos.ToString();
                 }
                     
-            }else if (result.gameObject.CompareTag("TextUI"))
+            }
+            else if (result.gameObject.CompareTag("TextUI"))
             {
                bool terminado =  result.gameObject.GetComponent<TextFunction>().ChangeText();
                GVROff();
@@ -74,7 +70,11 @@ public class VRGaze : MonoBehaviour
                {
                    GVROn();
                }
-              
+            }
+            else if (result.gameObject.CompareTag("Salir"))
+            {
+                Application.Quit();
+                Debug.Log("Holi");
             }
         }
     }
