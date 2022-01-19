@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TextFunction : MonoBehaviour
 {
 
-    public Text textoHis;
+    public TMP_Text textoHis;
     protected int countHis = 0;
     public SimpleShoot s;
     public SpawnEnemy enemys;
