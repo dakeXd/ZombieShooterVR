@@ -23,13 +23,13 @@ public class TextFunction : MonoBehaviour
                 textoHis.text = "¿Todo bien?";
                 break;
             case 2:
-                textoHis.text = "¿Qué haces aqui?";
+                textoHis.text = "¿QuÉ haces aquÍ?";
                 break;
             case 3:
-                textoHis.text = "¿Por qué no usas tu pistola?";
+                textoHis.text = "¿Por quÉ no usas tu pistola?";
                 break;
             case 4:
-                textoHis.text = "Venga, disparame";
+                textoHis.text = "Venga, dispÁrame";
                 break;
             case 5:
                 s.StartShoot();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
@@ -11,18 +12,22 @@ public class PlayerHealth : MonoBehaviour
     public float deathSpeed;
 
     public GameObject canvasMuerto;
+    public GameObject panel;
 
     public Image image;
 
     public Text textoFinal;
-    public Text count;
+    public TMP_Text count;
+
+    public  Animator animatorPanel;
 
     private void Start()
     {
+        animatorPanel = panel.GetComponent<Animator>();
+        
         image.color = new Color(image.color.r, image.color.g, image.color.b, 0.0f);
         hitsLeft = maxHits;
     }
-
     
     public bool Damage()
     {
@@ -45,14 +50,20 @@ public class PlayerHealth : MonoBehaviour
             yield return null;
         }
 
-        //FadeIn();
         canvasMuerto.SetActive(true);
         changeTextFinal();
 
-        //yield return null;
+        StartCoroutine(WaitToFadeOut());
+
+        if (animatorPanel != null)
+        {
+            bool fadeOut = animatorPanel.GetBool("Dead");
+            animatorPanel.SetBool("Dead", !fadeOut);
+        }
+
+        StartCoroutine(Reintentar());
 
         Debug.Log("Activar fin");
-        //SceneManager.LoadScene(0);
     }
 
     public void FadeIn()
@@ -68,10 +79,19 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-
     public void changeTextFinal()
     {
         textoFinal.text = "Has matado: " + count.text + " zombies";
     }
 
+    IEnumerator WaitToFadeOut()
+    {
+        yield return new WaitForSeconds(5);
+    }
+
+    IEnumerator Reintentar()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("SampleScene");
+    }
 }
