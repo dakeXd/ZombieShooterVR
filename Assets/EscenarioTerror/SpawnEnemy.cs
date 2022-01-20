@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SpawnEnemy : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class SpawnEnemy : MonoBehaviour
     public int enemyCount;
     public int maxEnemies;
 
-    public Text enemyDead;
+    public TMP_Text enemyDead;
 
     void Start()
     {

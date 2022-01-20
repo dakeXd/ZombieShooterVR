@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
+
 public class VRGaze : MonoBehaviour
 {
     public Image imgGaze;
@@ -10,7 +12,7 @@ public class VRGaze : MonoBehaviour
     public bool gvrStatus;
     private float gvrTimer;
 
-    [SerializeField] private Text enemies;
+    [SerializeField] private TMP_Text enemies;
 
     private int contadorEnemigos;
 
