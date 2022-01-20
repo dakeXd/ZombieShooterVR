@@ -13,16 +13,19 @@ public class PlayerHealth : MonoBehaviour
 
     public GameObject canvasMuerto;
     public GameObject panel;
+    public GameObject infoUsuario;
 
     public Image image;
 
-    public Text textoFinal;
+    public TMP_Text textoFinal;
     public TMP_Text count;
+    public TMP_Text vidasTexto;
 
     public  Animator animatorPanel;
 
     private void Start()
     {
+        vidasTexto.text = "3/3";
         animatorPanel = panel.GetComponent<Animator>();
         
         image.color = new Color(image.color.r, image.color.g, image.color.b, 0.0f);
@@ -33,6 +36,7 @@ public class PlayerHealth : MonoBehaviour
     {
         
         hitsLeft--;
+        vidasTexto.text = hitsLeft + "/3";
         Debug.Log("Daño Recibido, vida actual " + hitsLeft);
         if (hitsLeft > 0) return false;
         StartCoroutine("Morirse");
@@ -42,6 +46,8 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Morirse()
     {
+        infoUsuario.SetActive(false);
+
         for (float i = transform.rotation.eulerAngles.x; i < 90; i += Time.deltaTime*deathSpeed)
         {
             Debug.Log(i);
@@ -86,12 +92,12 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator WaitToFadeOut()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(15f);
     }
 
     IEnumerator Reintentar()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         SceneManager.LoadScene("SampleScene");
     }
 }
