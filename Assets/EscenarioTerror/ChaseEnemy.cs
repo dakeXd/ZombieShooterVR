@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class ChaseEnemy : MonoBehaviour
 {
@@ -19,11 +20,15 @@ public class ChaseEnemy : MonoBehaviour
     private float currentTime;
 
     public AudioClip ZombieAttackSound;
+    public AudioSource ZombieBreathSource;
 
+    private bool _waiting;
 
+    private float _time;
     // Start is called before the first frame update
     void Start()
     {
+        _waiting = false;
         currentTime = timeAttack;
         agent = GetComponent<NavMeshAgent>();
         speed = agent.speed;
@@ -44,6 +49,14 @@ public class ChaseEnemy : MonoBehaviour
                 Vector3 newPos = transform.position - dirToPlayer;
 
                 agent.SetDestination(newPos);
+                if (!ZombieBreathSource.isPlaying && !_waiting)
+                {
+                    ZombieBreathSource.pitch = Random.Range(0.7f, 1.3f);
+                    _time = Random.Range(0, 1.5f);
+                    ZombieBreathSource.PlayDelayed(_time);
+                    _waiting = true;
+                    Invoke(nameof(ReactivateSund), _time);
+                }
             }
         }
         else
@@ -64,6 +77,10 @@ public class ChaseEnemy : MonoBehaviour
 
     }
 
+    private void ReactivateSund()
+    {
+        _waiting = false;
+    }
     private void AplicarDmg()
     {
         Player.GetComponent<PlayerHealth>().Damage();

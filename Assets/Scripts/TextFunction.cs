@@ -13,7 +13,6 @@ public class TextFunction : MonoBehaviour
     public SpawnEnemy enemys;
 
 
-
     public bool ChangeText()
     {
         countHis++;
@@ -35,6 +34,7 @@ public class TextFunction : MonoBehaviour
                 s.StartShoot();
                 textoHis.text = "¡YA VIENEN!";
                 enemys.enabled = true;
+                
                 Invoke(nameof(Desactivar), 0.5f);
                 return true;
                 
