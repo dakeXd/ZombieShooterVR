@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -23,8 +24,13 @@ public class PlayerHealth : MonoBehaviour
 
     public  Animator animatorPanel;
 
+    public PostProcessVolume volume;
+    private Vignette vignette;
+
     private void Start()
     {
+        volume.profile.TryGetSettings(out vignette);
+
         vidasTexto.text = "3/3";
         animatorPanel = panel.GetComponent<Animator>();
         
@@ -36,6 +42,11 @@ public class PlayerHealth : MonoBehaviour
     {
         
         hitsLeft--;
+
+        StartCoroutine(VignetteDaño());
+        StartCoroutine(Esperar(2));
+        StartCoroutine(DeshacerVignette());
+
         vidasTexto.text = hitsLeft + "/3";
         Debug.Log("Daño Recibido, vida actual " + hitsLeft);
         if (hitsLeft > 0) return false;
@@ -99,5 +110,32 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(6);
         SceneManager.LoadScene("SampleScene");
+    }
+
+    IEnumerator VignetteDaño()
+    {
+        while (vignette.intensity.value < .70f)
+        {
+            vignette.intensity.value += .05f;
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(1f);
+    }
+
+    IEnumerator Esperar(float segundos)
+    {
+        yield return new WaitForSeconds(segundos);
+    }
+
+    IEnumerator DeshacerVignette()
+    {
+        while (vignette.intensity.value > 0f)
+        {
+            vignette.intensity.value -= .005f;
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(2f);
     }
 }
